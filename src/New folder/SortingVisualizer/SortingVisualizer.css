@@ -1,0 +1,13 @@
+.array-container {
+    position: absolute;
+    margin: 5%;
+    
+    height:auto;
+    width:-webkit-fill-available;
+    /* top: 100px; */
+  }
+  
+  .array-bar {
+    
+    display: inline-block;
+  }
