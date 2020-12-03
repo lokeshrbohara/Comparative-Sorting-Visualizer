@@ -17,10 +17,12 @@ var ANIMATION_SPEED_MS = 10;
 //var NUMBER_OF_ARRAY_BARS = 250;
 
 // This is the main color of the array bars.
-const PRIMARY_COLOR = 'turquoise';
+var PRIMARY_COLOR = 'turquoise';
 
 // This is the color of array bars that are being compared throughout the animations.
-const SECONDARY_COLOR = 'gold';
+var SECONDARY_COLOR = 'gold';
+
+var PIVOTCOLOR = "red";
 
 export default class CompareVisualizer extends React.Component {
   constructor(props) {
@@ -35,7 +37,8 @@ export default class CompareVisualizer extends React.Component {
       array2: [],
       array3: [],
       array4: [],
-      narraybars:250
+      narraybars:250,
+      theme:"Light"
     //  sarray:10
 
     };
@@ -44,7 +47,8 @@ export default class CompareVisualizer extends React.Component {
     this.startCompare = this.startCompare.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSpeedChange = this.handleSpeedChange.bind(this);
-    
+    this.themechange = this.themechange.bind(this);
+
     this.user = this.user.bind(this);
 
 
@@ -52,6 +56,8 @@ export default class CompareVisualizer extends React.Component {
 
   componentDidMount() {
     this.resetArray();
+    document.getElementById('yut').style.backgroundColor="black";
+
   }
 
   resetArray() {
@@ -60,7 +66,7 @@ export default class CompareVisualizer extends React.Component {
     if(!this.state.userip){
         console.log(this.state.narraybars);
         for (let i = 0; i < this.state.narraybars; i++) {
-        array.push(randomIntFromInterval(5, (window.innerHeight-250)/4));
+        array.push(randomIntFromInterval(5, (window.innerHeight-450)/4));
         }
         this.setState({array});
         this.setState({array1:array});
@@ -135,7 +141,7 @@ export default class CompareVisualizer extends React.Component {
                 
                 barOneStyle.backgroundColor = SECONDARY_COLOR;
                 barTwoStyle.backgroundColor = SECONDARY_COLOR;
-                pivotidxStyle.backgroundColor = 'red';
+                pivotidxStyle.backgroundColor = PIVOTCOLOR;
                 }, i * ANIMATION_SPEED_MS);
 
             }
@@ -291,7 +297,64 @@ export default class CompareVisualizer extends React.Component {
     //this.setState(()=>({sarray: 10-event.target.value}));
     ANIMATION_SPEED_MS=10-event.target.value;
     //console.log(ANIMATION_SPEED_MS);
+  }
+
+  
+    
+  themechange(e){
+    e.preventDefault();
+    if(this.state.theme=="Dark")
+    {
+      document.documentElement.style.backgroundColor="black";
+      PRIMARY_COLOR = 'turquoise';
+      SECONDARY_COLOR = "gold";
+      PIVOTCOLOR = "red";
+      this.setState({theme:"Light"});
+      var y=document.getElementsByTagName('button');
+      for (var i = 0; i < y.length; i++) {
+        y[i].style.color = "white";
+        y[i].style.borderColor = "gold";
+
+      }
+      var y=document.getElementsByTagName('p');
+      for (var i = 0; i < y.length; i++) {
+        y[i].style.color = "gold";
+
+      }
+      document.getElementById('yoiu').style.color="gold";
+      document.getElementById('yoiw').style.color="gold";
+      
+      document.getElementById('yut').style.backgroundColor="black";
+      document.getElementById('yut').style.color="gold";
+
     }
+    else
+    {
+      document.documentElement.style.backgroundColor="#D2D6DB";
+      PRIMARY_COLOR="#072F5F";
+      SECONDARY_COLOR = "red";
+      PIVOTCOLOR = "yellow";
+      this.setState({theme:"Dark"});
+      document.getElementById('yoiu').style.color="black";
+      document.getElementById('yoiw').style.color="black";
+      var y=document.getElementsByTagName('button');
+      for (var i = 0; i < y.length; i++) {
+        y[i].style.color = "black";
+        y[i].style.borderColor = "#072F5F";
+
+      }
+      var y=document.getElementsByTagName('p');
+      for (var i = 0; i < y.length; i++) {
+        y[i].style.color = "black";
+
+      }
+      
+      document.getElementById('yut').style.backgroundColor="#D2D6DB";
+      document.getElementById('yut').style.color="#072F5F";
+      
+    }
+  }
+
 
   render() {
     const {array1} = this.state;
@@ -366,12 +429,14 @@ export default class CompareVisualizer extends React.Component {
       <button onClick={() => this.startCompare()}>
         Start
       </button>
-      <button onClick={this.modalShowtoggle}>Show Modal</button>
+      <button onClick={this.modalShowtoggle}>User Input</button>
       <button onClick={(t)=>this.props.comparealgo(false)}>Revert</button>
+      <button onClick={(e)=>this.themechange(e)}>{this.state.theme}</button>
+
        <br /><br />
        <div style={{display: "inline-flex"}}>
-       <div style={{color:"gold", margin:"10px"}}>Number of Bars:  <input type="number" value={this.state.narraybars} onChange={this.handleChange} /> </div>
-       <div style={{color:"gold", margin:"10px"}}>Animation Speed:  <input type="range" value={null} min="1" max="9" onChange={this.handleSpeedChange} /> </div>
+       <div id="yoiu" style={{color:"gold", margin:"10px"}}>Number of Bars:  <input type="number" value={this.state.narraybars} onChange={this.handleChange} /> </div>
+       <div id="yoiw" style={{color:"gold", margin:"10px"}}>Animation Speed:  <input type="range" value={null} min="1" max="9" onChange={this.handleSpeedChange} /> </div>
        </div>
       </div>
     }

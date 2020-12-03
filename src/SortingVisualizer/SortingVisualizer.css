@@ -43,3 +43,8 @@
     opacity:1;
   }
   
+  .jumbo{
+    margin-bottom: unset !important;
+    color:gold;
+    padding: 1rem 2rem !important;
+  }
