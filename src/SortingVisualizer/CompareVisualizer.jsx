@@ -38,7 +38,7 @@ export default class CompareVisualizer extends React.Component {
       array3: [],
       array4: [],
       narraybars:250,
-      theme:"Light"
+      theme:"Dark"
     //  sarray:10
 
     };
@@ -56,8 +56,14 @@ export default class CompareVisualizer extends React.Component {
 
   componentDidMount() {
     this.resetArray();
-    document.getElementById('yut').style.backgroundColor="black";
-
+    //document.getElementById('yut').style.backgroundColor="black";
+    this.themechange();
+  }
+  
+  componentWillUnmount() {
+ 
+    //document.getElementById('yut').style.backgroundColor="black";
+    this.props.th();
   }
 
   resetArray() {
@@ -301,8 +307,8 @@ export default class CompareVisualizer extends React.Component {
 
   
     
-  themechange(e){
-    e.preventDefault();
+  themechange(){
+    //e.preventDefault();
     if(this.state.theme=="Dark")
     {
       document.documentElement.style.backgroundColor="black";
@@ -431,7 +437,7 @@ export default class CompareVisualizer extends React.Component {
       </button>
       <button onClick={this.modalShowtoggle}>User Input</button>
       <button onClick={(t)=>this.props.comparealgo(false)}>Revert</button>
-      <button onClick={(e)=>this.themechange(e)}>{this.state.theme}</button>
+      <button onClick={this.themechange}>{this.state.theme}</button>
 
        <br /><br />
        <div style={{display: "inline-flex"}}>

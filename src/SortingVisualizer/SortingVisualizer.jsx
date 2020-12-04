@@ -36,7 +36,7 @@ export default class SortingVisualizer extends React.Component {
       compare:false,
       narraybars: 250,
       sarray: 10,
-      theme:"Light"
+      theme:"Dark"
     };
     this.modalShowtoggle = this.modalShowtoggle.bind(this);
     this.modalHidetoggle = this.modalHidetoggle.bind(this);
@@ -53,9 +53,10 @@ export default class SortingVisualizer extends React.Component {
 
   componentDidMount() {
     this.resetArray();
-    document.getElementById('yut').style.backgroundColor="black";
+    this.themechange();
+    //document.getElementById('yut').style.backgroundColor="black";
   }
-
+ 
   resetArray() {
     const array = [];
     this.setState({userip:false});
@@ -260,8 +261,8 @@ export default class SortingVisualizer extends React.Component {
     //console.log(ANIMATION_SPEED_MS);
     }
 
-  themechange(e){
-    e.preventDefault();
+  themechange(){
+    //e.preventDefault();
     if(this.state.theme=="Dark")
     {
       document.documentElement.style.backgroundColor="black";
@@ -336,7 +337,7 @@ export default class SortingVisualizer extends React.Component {
       
       <button onClick={this.modalShowtoggle}>User Input</button>
       <button onClick={(t)=>this.comparealgo(true)}>Compare</button>
-      <button onClick={(e)=>this.themechange(e)}>{this.state.theme}</button>
+      <button onClick={this.themechange}>{this.state.theme}</button>
 
       <div style={{display: "inline-flex"}}>
        <div id="yoiu" style={{color:"gold", margin:"10px"}}>Number of Bars:  <input type="number" value={this.state.narraybars} onChange={this.handleChange} /> </div>
@@ -350,7 +351,7 @@ export default class SortingVisualizer extends React.Component {
         <CompareVisualizer
           compare={this.state.compare}
           comparealgo={this.comparealgo}
-        
+          th={this.themechange}
         />
       }
 
